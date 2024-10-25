@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Calculate Total Fees</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        const courses = [
+            { name: 'First Aid', price: 1500 },
+            { name: 'Sewing', price: 1500 },
+            { name: 'Landscaping', price: 1500 },
+            { name: 'Life Skills', price: 1500 },
+            { name: 'Child Minding', price: 750 },
+            { name: 'Cooking', price: 750 },
+            { name: 'Garden Maintenance', price: 750 }
+        ];
+
+        function calculateFees() {
+            const selectedCourses = [];
+            let total = 0;
+
+            // Get selected courses and calculate total price
+            document.querySelectorAll('input[name="courses"]:checked').forEach(checkbox => {
+                const course = courses.find(c => c.name === checkbox.value);
+                selectedCourses.push(course);
+                total += course.price;
+            });
+
+            // Apply discount
+            let discount = 0;
+            if (selectedCourses.length === 2) {
+                discount = 0.05;
+            } else if (selectedCourses.length === 3) {
+                discount = 0.10;
+            } else if (selectedCourses.length > 3) {
+                discount = 0.15;
+            }
+            const discountedTotal = total - (total * discount);
+
+            // Add VAT (15%)
+            const vat = discountedTotal * 0.15;
+            const finalTotal = discountedTotal + vat;
+
+            // Display result
+            document.getElementById('quote').innerText = `Total: R${finalTotal.toFixed(2)} (including VAT and discount)`;
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <img src="_images/empowering the nation.png" height="200" width="400" alt="logo" class="logo">
+        <nav id="toplinks">
+            <ul>
+                <li><a target="_blank">Services</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="discounts.html">Discounts</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+      <div id="wrapper">
+        <h1>Services - Calculate Total Fees</h1>
+
+        <h2>Register for Courses</h2>
+        <form id="course-form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br><br>
+
+            <label><input type="checkbox" name="courses" value="First Aid"> First Aid (R1500)</label><br>
+            <label><input type="checkbox" name="courses" value="Sewing"> Sewing (R1500)</label><br>
+            <label><input type="checkbox" name="courses" value="Landscaping"> Landscaping (R1500)</label><br>
+            <label><input type="checkbox" name="courses" value="Life Skills"> Life Skills (R1500)</label><br>
+            <label><input type="checkbox" name="courses" value="Child Minding"> Child Minding (R750)</label><br>
+            <label><input type="checkbox" name="courses" value="Cooking"> Cooking (R750)</label><br>
+            <label><input type="checkbox" name="courses" value="Garden Maintenance"> Garden Maintenance (R750)</label><br><br>
+
+            <button type="button" onclick="calculateFees()">Calculate Total Fee</button>
+        </form>
+
+        <h3>Quote:</h3>
+        <p id="quote">Total: R0.00</p>
+
+        <p>These links will lead you to the details of each course:</p>
+        <nav id="courselinks">
+            <li><a href="first_aid.html">Fisrt Aid</a></li>
+            <li><a href="sewing.html">Sewing</a></li>
+            <li><a href="landscaping.html">Landscaping</a></li>
+            <li><a href="life_skills.html">Life Skills</a></li>
+            <li><a href="child_minding.html">Child Minding</a></li>
+            <li><a href="cooking.html">Cooking</a></li>
+            <li><a href="gardening_maintenance.html">Gardening Maintenance</a></li>
+        </nav>
+      </div>
+    </main>
+
+    <footer>
+        <nav id="bottomlinks">
+            <ul>
+                <li><a target="_blank">Services</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="discounts.html">Discounts</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </footer>
+</body>
+</html>
